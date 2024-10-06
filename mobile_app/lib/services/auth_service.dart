@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'dart:io';
+import 'package:path/path.dart';
 
 class AuthService {
   // Base URL for your API
   final String _baseUrl =
-      'http://192.168.56.1:3000/api'; // Replace with your actual backend API base URL
+      'http://localhost:3000/api'; // Replace with your actual backend API base URL
 
   // Function to handle login
   Future<Map<String, dynamic>> login(
@@ -27,6 +29,45 @@ class AuthService {
           response.body); // Returns the response body, which includes the token
     } else {
       throw Exception('Failed to login. Error: ${response.statusCode}');
+    }
+  }
+
+  // Function to handle registration
+  Future<http.Response> registerUser({
+    required String surname,
+    required String otherNames,
+    required String dob,
+    required String uniqueCode,
+    File? idPhoto, // Optional photo file
+  }) async {
+    try {
+      // Create a multipart request
+      var request =
+          http.MultipartRequest('POST', Uri.parse('$_baseUrl/register'));
+
+      // Add text fields
+      request.fields['surname'] = surname;
+      request.fields['otherNames'] = otherNames;
+      request.fields['dob'] = dob;
+      request.fields['uniqueCode'] = uniqueCode;
+
+      // If the ID photo is provided, add it to the request
+      if (idPhoto != null) {
+        request.files.add(await http.MultipartFile.fromPath(
+          'idPhoto', // Field name for the file
+          idPhoto.path,
+          filename: basename(idPhoto.path),
+        ));
+      }
+
+      // Send the request and wait for the response
+      var streamedResponse = await request.send();
+      var response = await http.Response.fromStream(streamedResponse);
+
+      return response;
+    } catch (e) {
+      print('Error during API call: $e');
+      throw Exception('Failed to register');
     }
   }
 }

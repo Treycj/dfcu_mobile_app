@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app/services/shared_preferences.dart';
 import 'package:mobile_app/views/homepage.dart';
+import 'package:mobile_app/views/registerpage.dart';
 import '../services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -55,7 +56,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       MaterialPageRoute(
                           builder: (context) => const HomePage()));
                 },
-                child: const Text('OK'),
+                child: const Text(
+                  'OK',
+                  style: TextStyle(color: Colors.blueAccent),
+                ),
               ),
             ],
           ),
@@ -176,6 +180,31 @@ class _LoginScreenState extends State<LoginScreen> {
                                     color: Colors.blueAccent,
                                   )),
                             ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Text(
+                        'or',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Center(
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const RegisterScreen()));
+                          },
+                          child: const Text(
+                            'Register ',
+                            style: TextStyle(fontSize: 18, color: Colors.white),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),

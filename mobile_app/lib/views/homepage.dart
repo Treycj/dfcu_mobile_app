@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app/views/registerpage.dart';
+import 'package:mobile_app/views/staff_listpage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -100,13 +101,11 @@ class _HomePageState extends State<HomePage> {
                           ),
                           InkWell(
                             onTap: () {
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) =>
-                              //         const MakePaymentPage(),
-                              //   ),
-                              // );
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const StaffListPage()));
                             },
                             child: Container(
                               height: 80,
