@@ -1,6 +1,6 @@
 # mobile_app
 
-A new Flutter project.
+A Flutter project for an HR management system.
 
 ## Getting Started
 
